@@ -1,0 +1,17 @@
+diff --git a/var/spack/repos/builtin/packages/gnupg/package.py b/var/spack/repos/builtin/packages/gnupg/package.py
+index f6397210ea..799e04981d 100644
+--- a/var/spack/repos/builtin/packages/gnupg/package.py
++++ b/var/spack/repos/builtin/packages/gnupg/package.py
+@@ -34,8 +34,12 @@ class Gnupg(AutotoolsPackage):
+     depends_on('iconv')
+     depends_on('zlib')
+ 
++    def setup_build_environment(self, env):
++        env.set('LDFLAGS', '-lrt')
++
+     def configure_args(self):
+         args = [
++            'ac_cv_func_inotify_init=no',
+             '--disable-bzip2',
+             '--disable-sqlite',
+             '--disable-ntbtls',

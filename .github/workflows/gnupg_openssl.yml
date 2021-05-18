@@ -69,6 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ x86_64_mirrors ]
     steps:
+      - uses: actions/checkout@v2
       - run: |
           . ./gnupg_openssl/copy_mirror_x86_64.sh
       - uses: actions/upload-artifact@v2

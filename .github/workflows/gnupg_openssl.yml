@@ -40,7 +40,6 @@ jobs:
           platforms: linux/amd64
           pull: ${{ github.event_name == 'pull_request' }}
           load: true
-          push: true
           tags: ghcr.io/alalazo/gnupg_openssl_x86_64:latest
           labels: ${{ steps.docker_meta.outputs.labels }}
       - run: |

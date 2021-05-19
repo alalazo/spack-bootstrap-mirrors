@@ -59,7 +59,7 @@ jobs:
 
       # Build and eventually push to registry
       - uses: docker/build-push-action@v2
-        if: 'false' # ${{ needs.changes.outputs.x86_64 == 'true' }}
+        if: ${{ needs.changes.outputs.x86_64 == 'true' }}
         with:
           file: ./gnupg_openssl/Dockerfile.x86_64
           platforms: linux/amd64
@@ -86,9 +86,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - run: |
-          brew install gawk
+          brew install gawk perl
           git clone https://github.com/spack/spack.git
           . spack/share/spack/setup-env.sh
+          spack external find --not-buildable gawk perl
           spack install gnupg cflags="-mmacosx-version-min=10.13" target=x86_64
           spack install openssl cflags="-mmacosx-version-min=10.13" target=x86_64
           mkdir -p binary-mirror

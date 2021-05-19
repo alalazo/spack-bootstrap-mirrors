@@ -8,6 +8,7 @@ COPY --chown=spack:spack spack.patch /home/spack/spack/spack.patch
 COPY --chown=spack:spack gnupg_openssl/gnupg.patch /home/spack/spack/gnupg.patch
 
 RUN cd spack && git apply spack.patch && git apply gnupg.patch
+RUN ${SPACK_CMD} external find --not-buildable gawk perl
 RUN PATH=$(${SPACK_CMD} location -i tar)/bin:$PATH ${SPACK_CMD} install gnupg target=x86_64
 RUN PATH=$(${SPACK_CMD} location -i tar)/bin:$PATH ${SPACK_CMD} install openssl target=x86_64
 RUN mkdir -p /home/spack/binary-mirror && \

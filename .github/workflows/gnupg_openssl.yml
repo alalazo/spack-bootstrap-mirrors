@@ -148,6 +148,6 @@ jobs:
           . ./gnupg_openssl/copy_mirror_arm_ppc.sh
       - uses: actions/upload-artifact@v2
         with:
-          name: clingo_binary_mirror
+          name: gnupg_openssl_binary_mirror
           path: |
             binary-mirror

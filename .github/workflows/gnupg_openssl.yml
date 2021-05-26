@@ -31,6 +31,7 @@ jobs:
           - './gnupg_openssl/gnupg.patch'
           arm64ppc64le:
           - './gnupg_openssl/Dockerfile.manylinux2014'
+          - './spack2014.patch'
 
   x86_64_mirrors:
     runs-on: ubuntu-latest
@@ -132,7 +133,7 @@ jobs:
       # Build and eventually push to registry
       - uses: docker/build-push-action@v2
         # Build and push only if the Dockerfile changed
-        if: 'false' # ${{ needs.changes.outputs.arm64ppc64le == 'true' }}
+        if: ${{ needs.changes.outputs.arm64ppc64le == 'true' }}
         with:
           file: ./gnupg_openssl/Dockerfile.manylinux2014
           platforms: linux/arm64,linux/ppc64le

@@ -90,11 +90,13 @@ jobs:
           git clone https://github.com/spack/spack.git
           . spack/share/spack/setup-env.sh
           spack external find --not-buildable gawk perl
-          spack install gnupg cflags="-mmacosx-version-min=10.13" target=x86_64
-          spack install openssl cflags="-mmacosx-version-min=10.13" target=x86_64
+          spack config add "config:install_tree:padded_length:128"
           mkdir -p binary-mirror
+          spack install gnupg cflags="-mmacosx-version-min=10.13" target=x86_64
           spack buildcache create -d $PWD/binary-mirror -a -u -f gnupg
-          spack buildcache create -d $PWD/binary-mirror -a -u -f openssl
+          # Uncomment if we need OpenSSL
+          # spack install openssl cflags="-mmacosx-version-min=10.13" target=x86_64
+          # spack buildcache create -d $PWD/binary-mirror -a -u -f openssl
       - uses: actions/upload-artifact@v2
         with:
           name: gnupg_openssl_binary_mirror

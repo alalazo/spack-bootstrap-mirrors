@@ -1,4 +1,4 @@
-name: "GnuPG and OpenSSL"
+name: "GnuPG"
 
 on:
   push:
@@ -78,7 +78,7 @@ jobs:
           . ./gnupg_openssl/copy_mirror_x86_64.sh
       - uses: actions/upload-artifact@v2
         with:
-          name: gnupg_openssl_binary_mirror
+          name: gnupg_binary_mirror
           path: binary-mirror
 
   darwin:
@@ -100,7 +100,7 @@ jobs:
           # spack buildcache create -d $PWD/binary-mirror -a -u -f openssl
       - uses: actions/upload-artifact@v2
         with:
-          name: gnupg_openssl_binary_mirror
+          name: gnupg_binary_mirror
           path: binary-mirror
 
   arm64ppc64le:
@@ -151,6 +151,26 @@ jobs:
           . ./gnupg_openssl/copy_mirror_arm_ppc.sh
       - uses: actions/upload-artifact@v2
         with:
-          name: gnupg_openssl_binary_mirror
+          name: gnupg_binary_mirror
           path: |
             binary-mirror
+
+  gnupg_json:
+    runs-on: ubuntu-latest
+    needs: [ upload-arm64-ppc64le, upload-x86-64, darwin ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - uses: actions/download-artifact@v2
+        with:
+          name: gnupg_binary_mirror
+      - run: |
+          pip install ruamel.yaml
+          python gnupg_openssl/gnupg_json.py
+      - uses: actions/upload-artifact@v2
+        with:
+          name: gnupg_manifest
+          path: |
+            gnupg.json

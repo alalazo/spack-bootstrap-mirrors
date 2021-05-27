@@ -87,10 +87,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - run: |
-          brew install gawk perl
+          # brew install gawk perl
           git clone https://github.com/spack/spack.git
           . spack/share/spack/setup-env.sh
-          spack external find --not-buildable gawk perl
+          # spack external find --not-buildable gawk perl
           spack config add "config:install_tree:padded_length:128"
           mkdir -p binary-mirror
           spack install gnupg cflags="-mmacosx-version-min=10.13" target=x86_64

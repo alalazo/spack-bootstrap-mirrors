@@ -1,0 +1,12 @@
+diff --git a/var/spack/repos/builtin/packages/gnupg/package.py b/var/spack/repos/builtin/packages/gnupg/package.py
+index 2a602d8eff..2321b9aeda 100644
+--- a/var/spack/repos/builtin/packages/gnupg/package.py
++++ b/var/spack/repos/builtin/packages/gnupg/package.py
+@@ -56,6 +56,7 @@ def configure_args(self):
+             '--disable-gnutls',
+             '--disable-ldap',
+             '--disable-regex',
++            '--disable-nls',
+             '--with-pinentry-pgm='        + self.spec['pinentry'].command.path,
+             '--with-libgpg-error-prefix=' + self.spec['libgpg-error'].prefix,
+             '--with-libgcrypt-prefix='    + self.spec['libgcrypt'].prefix,

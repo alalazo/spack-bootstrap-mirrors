@@ -12,14 +12,15 @@ index 2a602d8eff..a420ccb5b7 100644
              '--with-libgpg-error-prefix=' + self.spec['libgpg-error'].prefix,
              '--with-libgcrypt-prefix='    + self.spec['libgcrypt'].prefix,
 diff --git a/var/spack/repos/builtin/packages/libgpg-error/package.py b/var/spack/repos/builtin/packages/libgpg-error/package.py
-index 2083e2e61e..65288b447f 100644
+index 2083e2e61e..0de1a018f0 100644
 --- a/var/spack/repos/builtin/packages/libgpg-error/package.py
 +++ b/var/spack/repos/builtin/packages/libgpg-error/package.py
-@@ -31,5 +31,6 @@ def configure_args(self):
+@@ -31,5 +31,7 @@ def configure_args(self):
          return [
              '--enable-static',
              '--enable-shared',
 -            '--enable-tests' if self.run_tests else '--disable-tests'
 +            '--enable-tests' if self.run_tests else '--disable-tests',
-+            '--without-libintl-prefix'
++            '--without-libintl-prefix',
++            '--disable-nls'
          ]

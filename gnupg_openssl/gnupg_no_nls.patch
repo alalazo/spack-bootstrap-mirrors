@@ -6,7 +6,7 @@ index 2a602d8eff..2321b9aeda 100644
              '--disable-gnutls',
              '--disable-ldap',
              '--disable-regex',
-+            '--disable-nls',
++            '--disable-nls', '--without-libintl-prefix,
              '--with-pinentry-pgm='        + self.spec['pinentry'].command.path,
              '--with-libgpg-error-prefix=' + self.spec['libgpg-error'].prefix,
              '--with-libgcrypt-prefix='    + self.spec['libgcrypt'].prefix,

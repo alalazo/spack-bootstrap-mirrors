@@ -28,10 +28,11 @@ jobs:
         filters: |
           x86_64:
           - './gnupg/Dockerfile.x86_64'
-          - './gnupg/gnupg.patch'
+          - './gnupg/patches/gnupg_rhel5.patch'
+          - './spack/patches/spack_rhel5.patch'
           arm64ppc64le:
           - './gnupg/Dockerfile.manylinux2014'
-          - './spack2014.patch'
+          - './spack/patches/spack_buildx.patch'
 
   x86_64_mirrors:
     runs-on: ubuntu-latest
@@ -88,14 +89,14 @@ jobs:
       - uses: actions/setup-python@v2
       - run: |
           brew install gawk perl
-          git clone https://github.com/spack/spack.git
+          git clone https://github.com/spack/spack.git spack-src
 
           # Disables internationalization to avoid linking to
           # libintl on MacOS, since that will make the binary
           # non portable
-          cd spack && git apply ../gnupg/patches/gnupg_macos.patch && cd ..
+          cd spack-src && git apply ../gnupg/patches/gnupg_macos.patch && cd ..
           
-          . spack/share/spack/setup-env.sh
+          . spack-src/share/spack/setup-env.sh
           spack external find --not-buildable gawk perl
           spack config add "config:install_tree:padded_length:128"
           mkdir -p binary-mirror

@@ -10,7 +10,7 @@ WORKDIR /home/spack
 # Clone the repo and install Spack
 RUN git clone https://www.github.com/spack/spack.git
 
-COPY --chown=spack:spack spack2014.patch /home/spack/spack/spack.patch
+COPY --chown=spack:spack spack/patches/spack_buildx.patch /home/spack/spack/spack.patch
 RUN cd spack && git apply spack.patch
 
 # Set externals, locate compilers

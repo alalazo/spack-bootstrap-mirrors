@@ -32,9 +32,12 @@ jobs:
           - './clingo/Dockerfile.manylinux1_gcc9'
           - './clingo/packages.yaml'
           manylinux1_mirrors:
-          - './Dockerfile.manylinux1_mirrors'
-          - './create_binary_mirror.sh'
-          - './spack.patch'
+          - './clingo/Dockerfile.manylinux1_mirrors'
+          - './clingo/scripts/create_binary_mirror.sh'
+          - './clingo/scripts/install_clingo.py'
+          - './clingo/scripts/copy_mirror_manylinux1.sh'
+          - './clingo/scripts/bootstrap_mirror_manylinux1.sh'
+          - './clingo/patches/spack_manylinux1.patch'
           manylinux2014:
           - './Dockerfile.manylinux2014'
           - './create_binary_mirror.sh'

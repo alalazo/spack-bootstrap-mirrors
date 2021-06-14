@@ -29,7 +29,8 @@ jobs:
         # See https://github.com/dorny/paths-filter/issues/56 for the syntax used below
         filters: |
           manylinux1_gcc:
-          - './Dockerfile.manylinux1_gcc9'
+          - './clingo/Dockerfile.manylinux1_gcc9'
+          - './clingo/packages.yaml'
           manylinux1_mirrors:
           - './Dockerfile.manylinux1_mirrors'
           - './create_binary_mirror.sh'
@@ -72,7 +73,7 @@ jobs:
         # Build and push only if the Dockerfile changed
         if: ${{ needs.changes.outputs.manylinux1_gcc == 'true' }}
         with:
-          file: ./Dockerfile.manylinux1_gcc9
+          file: ./clingo/Dockerfile.manylinux1_gcc9
           platforms: linux/amd64
           pull: ${{ github.event_name == 'pull_request' }}
           push: true
@@ -108,7 +109,7 @@ jobs:
       - uses: docker/build-push-action@v2
         if: ${{ needs.changes.outputs.manylinux1_mirrors == 'true' }}
         with:
-          file: ./Dockerfile.manylinux1_mirrors
+          file: ./clingo/Dockerfile.manylinux1_mirrors
           platforms: linux/amd64
           pull: ${{ github.event_name == 'pull_request' }}
           push: true
@@ -121,7 +122,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          . ./copy_mirror.sh
+          . ./clingo/scripts/copy_mirror_manylinux1.sh
       - uses: actions/upload-artifact@v2
         with:
           name: clingo_binary_mirror

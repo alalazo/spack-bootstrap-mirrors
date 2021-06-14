@@ -76,7 +76,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          . ./gnupg/copy_mirror_x86_64.sh
+          . ./gnupg/scripts/copy_mirror_x86_64.sh
       - uses: actions/upload-artifact@v2
         with:
           name: gnupg_binary_mirror
@@ -154,7 +154,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          . ./gnupg/copy_mirror_arm_ppc.sh
+          . ./gnupg/scripts/copy_mirror_arm_ppc.sh
       - uses: actions/upload-artifact@v2
         with:
           name: gnupg_binary_mirror
@@ -174,7 +174,7 @@ jobs:
           name: gnupg_binary_mirror
       - run: |
           pip install ruamel.yaml
-          python gnupg/gnupg_json.py
+          python gnupg/scripts/gnupg_json.py
       - uses: actions/upload-artifact@v2
         with:
           name: gnupg_manifest

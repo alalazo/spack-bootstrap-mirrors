@@ -104,7 +104,6 @@ for spec_yaml in spec_yaml_files:
     current_hash = binary_data['clingo']['hash']
     mirror_entry = {
         "spec": SPEC_INFO[(current_os, current_target)]['spec'],
-        "hash": current_hash,
         "python": python_spec,
         "binaries": [
             ('clingo-bootstrap', current_hash, shas[current_hash])

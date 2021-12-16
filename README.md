@@ -56,7 +56,6 @@ by compatibility with the [manylinux](https://github.com/pypa/manylinux) project
 Platform | OS | Compiler Toolchain | Architecture | Python
 ---------|----|--------------------|--------------|-------
 `linux` | `rhel5` | `GCC 9.3.0`| `x86_64` | 2.7,3.5-3.9
-`linux` | `centos6` | `GCC 9.3.0`| `x86_64` | 2.6
 `linux` | `centos7` | `GCC 9.3.1`| `aarch64` | 3.5-3.9
 `linux` | `centos7` | `GCC 9.3.1`| `ppc64le` | 3.5-3.9
 `darwin`| `MacOS 10.13` or later | `Apple Clang 12.0.0` | `x86_64` | 3.5-3.9
@@ -67,8 +66,7 @@ and used on `aarch64` and `ppc64le`.
 The choice of the compiler toolchain is determined
 by the necessity to support `C++14` for `clingo`. `GCC 9.3.0` has
 been built with Spack on top of the system compiler present on
-`rhel5` (`GCC 4.8.2`). `centos6` is used only to support `Python 2.6`
-build of `clingo`.
+`rhel5` (`GCC 4.8.2`).
 
 ## Github Actions Workflows
 
@@ -95,9 +93,7 @@ machine and pushed to ghcr.io**.
 ### `clingo` specific caveats
 
 To avoid having runtime dependencies on `libstdc++.so`, `clingo` is
-linked against a static version of the runtime library. To add support
-for the `Python 2.6` interpreter coming with `centos6` `clingo` had to be patched so that the `PyCapsuleAPI` is provided in terms of
-`PYCObject`. Details for this operation are documented [here](https://py3c.readthedocs.io/en/latest/capsulethunk.html)
+linked against a static version of the runtime library.
 
 ### `GnuPG` specific caveats
 

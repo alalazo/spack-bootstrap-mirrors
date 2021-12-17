@@ -132,18 +132,22 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        python-version: [3.5, 3.6, 3.7, 3.8, 3.9]
+        python-version: [3.5, 3.6, 3.7, 3.8, 3.9, 3.10]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - run: |
+      - name: Prepare Spack
+        run: |
           brew install bison
           export PATH="/usr/local/opt/bison/bin:$PATH"
           git clone https://github.com/spack/spack.git spack-src
           . spack-src/share/spack/setup-env.sh
           spack external find --not-buildable cmake bison
+      - name: Install clingo
+        run: |
+          . spack-src/share/spack/setup-env.sh
           spack python clingo/scripts/install_clingo.py
           mkdir -p binary-mirror
           spack buildcache create -d $PWD/binary-mirror -a -u -f clingo-bootstrap

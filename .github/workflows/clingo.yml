@@ -189,7 +189,7 @@ jobs:
         if: ${{ needs.changes.outputs.manylinux2014 == 'true' }}
         with:
           file: ./clingo/Dockerfile.manylinux2014
-          platforms: linux/arm64,linux/ppc64le
+          platforms: linux/arm64,linux/ppc64le,linux/amd64
           pull: ${{ github.event_name == 'pull_request' }}
           push: true
           tags: ghcr.io/alalazo/manylinux2014_mirrors:latest

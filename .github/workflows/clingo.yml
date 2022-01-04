@@ -27,62 +27,21 @@ jobs:
       with:
         # See https://github.com/dorny/paths-filter/issues/56 for the syntax used below
         filters: |
-          manylinux1_gcc:
-          - './clingo/Dockerfile.manylinux1_gcc9'
+          manylinux1:
+          - './clingo/Dockerfile.manylinux1'
           - './clingo/packages.yaml'
-          manylinux1_mirrors:
-          - './clingo/Dockerfile.manylinux1_mirrors'
           - './clingo/scripts/create_binary_mirror.sh'
           - './clingo/scripts/install_clingo.py'
           - './clingo/scripts/bootstrap_clingo_manylinux1.sh'
-          - './spack/patches/spack_rhel5.patch'
           manylinux2014:
           - './clingo/Dockerfile.manylinux2014'
           - './clingo/scripts/create_binary_mirror.sh'
           - './clingo/scripts/install_clingo.py'
           - './clingo/scripts/bootstrap_clingo_manylinux2014.sh'
-          - './spack/patches/spack_buildx.patch'
 
-  manylinux_gcc:
+  manylinux1:
     runs-on: ubuntu-latest
     needs: [ changes ]
-    env:
-      PLATFORM: x86_64
-      COMMIT_SHA: ${{ github.sha }}
-
-    steps:
-      - uses: actions/checkout@v2
-
-      # Setup tags to be used for docker images
-      - uses: crazy-max/ghaction-docker-meta@v1
-        id: docker_meta
-        with:
-          images: ghcr.io/${{ github.repository_owner }}/manylinux1_gcc9_x86_64
-
-      # Login to Github Packages
-      - uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GHCR_PAT }}
-
-      - uses: docker/setup-buildx-action@v1
-
-      # Build and eventually push to registry
-      - uses: docker/build-push-action@v2
-        # Build and push only if the Dockerfile changed
-        if: ${{ needs.changes.outputs.manylinux1_gcc == 'true' }}
-        with:
-          file: ./clingo/Dockerfile.manylinux1_gcc9
-          platforms: linux/amd64
-          pull: ${{ github.event_name == 'pull_request' }}
-          push: true
-          tags: ghcr.io/alalazo/manylinux1_gcc9_x86_64:latest
-          labels: ${{ steps.docker_meta.outputs.labels }}
-
-  manylinux1_mirrors:
-    runs-on: ubuntu-latest
-    needs: [ changes, manylinux_gcc ]
     env:
       PLATFORM: x86_64
       COMMIT_SHA: ${{ github.sha }}
@@ -100,25 +59,28 @@ jobs:
       - uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GHCR_PAT }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: docker/setup-buildx-action@v1
 
       # Build and eventually push to registry
       - uses: docker/build-push-action@v2
-        if: ${{ needs.changes.outputs.manylinux1_mirrors == 'true' }}
+        # Build and push only if the Dockerfile changed
+        if: ${{ needs.changes.outputs.manylinux1 == 'true' }}
         with:
-          file: ./clingo/Dockerfile.manylinux1_mirrors
+          file: ./clingo/Dockerfile.manylinux1
           platforms: linux/amd64
           pull: ${{ github.event_name == 'pull_request' }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           push: true
-          tags: ghcr.io/alalazo/manylinux1_mirrors_x86_64:latest
+          tags: ghcr.io/alalazo/manylinux1_mirrors:latest
           labels: ${{ steps.docker_meta.outputs.labels }}
 
   upload-manylinux1:
     runs-on: ubuntu-latest
-    needs: [ manylinux1_mirrors ]
+    needs: [ manylinux1 ]
     steps:
       - uses: actions/checkout@v2
       - run: |

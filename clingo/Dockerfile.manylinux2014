@@ -21,4 +21,10 @@ RUN ${SPACK_CMD} compiler find
 RUN ${SPACK_CMD} config add "config:concretizer:original"
 RUN ${SPACK_CMD} config add "config:install_tree:padded_length:128"
 
-RUN ${HOME}/bootstrap_clingo2014.sh
+RUN ${HOME}/bootstrap_clingo2014.sh 36
+RUN ${HOME}/bootstrap_clingo2014.sh 37
+RUN ${HOME}/bootstrap_clingo2014.sh 38
+RUN ${HOME}/bootstrap_clingo2014.sh 39
+RUN ${HOME}/bootstrap_clingo2014.sh 310
+
+RUN ${HOME}/create_binary_mirror.sh

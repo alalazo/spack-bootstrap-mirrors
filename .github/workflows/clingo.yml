@@ -13,8 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     # Set job outputs to values from filter step
     outputs:
-      manylinux1_gcc: ${{ steps.filter.outputs.manylinux1_gcc }}
-      manylinux1_mirrors: ${{ steps.filter.outputs.manylinux1_mirrors }}
+      manylinux1: ${{ steps.filter.outputs.manylinux1 }}
       manylinux2014: ${{ steps.filter.outputs.manylinux2014 }}
     steps:
     - uses: actions/checkout@v2

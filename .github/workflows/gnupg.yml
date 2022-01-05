@@ -43,11 +43,6 @@ jobs:
           brew install gawk perl
           git clone https://github.com/spack/spack.git spack-src
 
-          # Disables internationalization to avoid linking to
-          # libintl on MacOS, since that will make the binary
-          # non portable
-          # cd spack-src && git apply ../gnupg/patches/gnupg_macos.patch && cd ..
-          
           . spack-src/share/spack/setup-env.sh
           spack external find --not-buildable gawk perl
           spack config add "config:install_tree:padded_length:128"

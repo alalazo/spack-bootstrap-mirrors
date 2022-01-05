@@ -10,9 +10,6 @@ WORKDIR /home/spack
 # Clone the repo and install Spack
 RUN git clone https://www.github.com/spack/spack.git
 
-COPY --chown=spack:spack spack/patches/spack_buildx.patch /home/spack/spack/spack.patch
-RUN cd spack && git apply spack.patch
-
 # Set externals, locate compilers
 RUN ${SPACK_CMD} external find --not-buildable gawk perl
 RUN ${SPACK_CMD} compiler find

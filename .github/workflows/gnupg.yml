@@ -46,7 +46,7 @@ jobs:
           # Disables internationalization to avoid linking to
           # libintl on MacOS, since that will make the binary
           # non portable
-          cd spack-src && git apply ../gnupg/patches/gnupg_macos.patch && cd ..
+          # cd spack-src && git apply ../gnupg/patches/gnupg_macos.patch && cd ..
           
           . spack-src/share/spack/setup-env.sh
           spack external find --not-buildable gawk perl

@@ -103,7 +103,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          . ./gnupg/scripts/copy_mirror_arm_ppc.sh
+          . ./gnupg/scripts/copy_mirror_manylinux2014.sh
       - uses: actions/upload-artifact@v2
         with:
           name: gnupg_binary_mirror

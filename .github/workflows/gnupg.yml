@@ -43,6 +43,11 @@ jobs:
           brew install gawk perl
           git clone https://github.com/spack/spack.git spack-src
 
+          # Disables internationalization to avoid linking to
+          # libintl on MacOS, since that will make the binary
+          # non portable
+          cd spack-src && git apply ../gnupg/patches/gnupg_macos.patch && cd ..    
+
           . spack-src/share/spack/setup-env.sh
           spack external find --not-buildable gawk perl
           spack config add "config:install_tree:padded_length:128"
@@ -86,7 +91,7 @@ jobs:
       # Build and eventually push to registry
       - uses: docker/build-push-action@v2
         # Build and push only if the Dockerfile changed
-        if: ${{ needs.changes.outputs.manylinux2014 == 'false' }}
+        if: ${{ needs.changes.outputs.manylinux2014 == 'true' }}
         with:
           file: ./gnupg/Dockerfile.manylinux2014
           platforms: linux/arm64,linux/ppc64le,linux/amd64

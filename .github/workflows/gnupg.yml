@@ -32,7 +32,6 @@ jobs:
         filters: |
           manylinux2014:
           - './gnupg/Dockerfile.manylinux2014'
-          - './spack/patches/spack_buildx.patch'
 
   darwin:
     runs-on: macos-latest

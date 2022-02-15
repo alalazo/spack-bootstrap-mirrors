@@ -123,7 +123,7 @@ jobs:
           path: binary-mirror
 
   manylinux2014:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [ changes ]
 
     steps:

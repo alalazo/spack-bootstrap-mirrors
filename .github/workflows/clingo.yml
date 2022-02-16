@@ -154,8 +154,9 @@ jobs:
         with:
           file: ./clingo/Dockerfile.manylinux2014
           platforms: linux/arm64,linux/ppc64le,linux/amd64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+	  # Self-hosted runners use the local cache
+          # cache-from: type=gha
+          # cache-to: type=gha,mode=max
           pull: ${{ github.event_name == 'pull_request' }}
           push: true
           tags: ghcr.io/alalazo/manylinux2014_mirrors:latest

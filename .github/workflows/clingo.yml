@@ -157,6 +157,8 @@ jobs:
           # Self-hosted runners use the local cache
           # cache-from: type=gha
           # cache-to: type=gha,mode=max
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
           pull: ${{ github.event_name == 'pull_request' }}
           push: true
           tags: ghcr.io/alalazo/manylinux2014_mirrors:latest

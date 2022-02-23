@@ -35,7 +35,7 @@ RUN PATH=$(${SPACK_CMD} location -i tar)/bin:$PATH ${SPACK_CMD} install gmake ta
 
 RUN mkdir /home/spack/mirror
 
-RUN ${SPACK_CMD} mirror create -d /home/spack/mirror -D gcc@9.3.0 target=x86_64 && \
+RUN ${SPACK_CMD} mirror create -d /home/spack/mirror -D gcc@9.3.0  ^mpc@1.1.0 target=x86_64 && \
     ${SPACK_CMD} mirror add mirror file:///home/spack/mirror
 
 RUN PATH=$(${SPACK_CMD} location -i tar)/bin:$(${SPACK_CMD} location -i gmake)/bin:$PATH ${SPACK_CMD} install --only=dependencies gcc@9.3.0 ^mpc@1.1.0 target=x86_64 && \

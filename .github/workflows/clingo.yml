@@ -49,8 +49,8 @@ jobs:
           # Self-hosted runners use the local cache
           # cache-from: type=gha
           # cache-to: type=gha,mode=max
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+          cache-from: type=local,src=/tmp/.buildx-cache-clingo-manylinux1
+          cache-to: type=local,dest=/tmp/.buildx-cache-clingo-manylinux1,mode=max
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
@@ -131,8 +131,8 @@ jobs:
           # Self-hosted runners use the local cache
           # cache-from: type=gha
           # cache-to: type=gha,mode=max
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+          cache-from: type=local,src=/tmp/.buildx-cache-clingo-manylinux2014
+          cache-to: type=local,dest=/tmp/.buildx-cache-clingo-manylinux2014,mode=max
           pull: ${{ github.event_name == 'pull_request' }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta.outputs.tags }}

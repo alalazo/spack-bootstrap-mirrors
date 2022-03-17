@@ -31,7 +31,7 @@ jobs:
       - uses: docker/metadata-action@v3
         id: docker_meta
         with:
-          images: ghcr.io/${{ github.repository_owner }}/manylinux1_mirrors
+          images: ghcr.io/${{ github.repository_owner }}/clingo_manylinux1
 
       # Login to Github Packages
       - uses: docker/login-action@v1
@@ -114,7 +114,7 @@ jobs:
       - uses: docker/metadata-action@v3
         id: docker_meta
         with:
-          images: ghcr.io/${{ github.repository_owner }}/manylinux2014_mirrors
+          images: ghcr.io/${{ github.repository_owner }}/clingo_manylinux2014
 
       # Login to Github Packages
       - uses: docker/login-action@v1

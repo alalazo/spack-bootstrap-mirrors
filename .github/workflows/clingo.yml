@@ -19,7 +19,7 @@ jobs:
   manylinux1:
     runs-on: self-hosted
     outputs:
-      spack_manylinux_tag: ${{ steps.docker_meta.outputs.tags[0] }}
+      spack_manylinux_tag: ${{ fromJSON(steps.docker_meta.outputs.json).tags[0] }}
     env:
       PLATFORM: x86_64
       COMMIT_SHA: ${{ github.sha }}
@@ -103,7 +103,7 @@ jobs:
   manylinux2014:
     runs-on: self-hosted
     outputs:
-      spack_manylinux_tag: ${{ steps.docker_meta.outputs.tags[0] }}
+      spack_manylinux_tag: ${{ fromJSON(steps.docker_meta.outputs.json).tags[0] }}
     permissions:
       packages: write
 

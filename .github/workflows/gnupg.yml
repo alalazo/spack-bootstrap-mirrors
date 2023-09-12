@@ -64,7 +64,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PAT }}
 
-      - uses: docker/setup-qemu-action@v1
+      - uses: docker/setup-qemu-action@v3
         id: qemu
         with:
           platforms: linux/ppc64le,linux/arm64,linux/amd64
